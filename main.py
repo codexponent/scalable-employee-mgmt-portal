@@ -59,23 +59,13 @@ def upload_image():
 	print(country)
 
 	# # Add to SQL Here
-	
-
-
-	# cnx = mysql.connector.connect(user='admin', database='employee')
 	cursor = cnx.cursor()
-
 	# tomorrow = datetime.now().date() + timedelta(days=1)
 
 	add_employee = ("INSERT INTO employee "
 				"(first_name, last_name, company, position, phone, email, country) "
 				"VALUES (%s, %s, %s, %s, %s, %s, %s)")
-	# add_salary = ("INSERT INTO salaries "
-	# 			"(emp_no, salary, from_date, to_date) "
-	# 			"VALUES (%(emp_no)s, %(salary)s, %(from_date)s, %(to_date)s)")
 
-	# data_employee = ('John', 'Smith', 'Microsoft', 'Software Engineer', 
-	# 					'+18172635592', 'johnsmith@microsoft.com', 'U.S.A')
 	data_employee = (first_name, last_name, company, position, 
 						phone, email, country)
 
@@ -95,53 +85,12 @@ def upload_image():
 	# Make sure data is committed to the database
 	cnx.commit()
 
+	
+	
+	# flash('DB successfully updated')
+	return render_template('upload.html')#, filename=filename)
 	cursor.close()
 	cnx.close()
-	
-
-	# print("----------------------")
-	# print(email)
-	# print("---------------------------")
-	# read_file = file.read()
-	# encoded = base64.encodebytes(read_file)
-	# # print(encoded)
-	# # print("----------------------")
-	
-	# image_str = encoded.decode('utf-8')
-	# # print("---------------------------")
-	# result = email+image_str
-	# print("----------------------")
-	# print(result)
-	# print("---------------------------")
-	
-	# # Send message to SQS queue
-	# response = sqs.send_message(
-	# 	QueueUrl=queue_url,
-	# 	MessageDeduplicationId=random_uuid,
-	# 	MessageBody=(
-	# 		result
-	# 		),
-	# 		MessageGroupId='1'
-	# 	)
-	# # print(random_uuid)
-
-	# if file.filename == '':
-	# 	flash('No image selected for uploading')
-
-	# 	# print(email)
-	# 	return redirect(request.url)
-	# if file and allowed_file(file.filename):
-	# 	filename = secure_filename(file.filename)
-		
-	# 	file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-	# 	#print('upload_image filename: ' + filename)
-	# 	flash('Image successfully uploaded and displayed below')
-	# 	return render_template('upload.html', filename=filename)
-	# else:
-	# 	flash('Allowed image types are -> png, jpg, jpeg, gif')
-	# 	return redirect(request.url)
-	flash('DB successfully updated')
-	return render_template('upload.html')#, filename=filename)
 
 
 @app.route('/display/<filename>')
@@ -150,4 +99,4 @@ def display_image(filename):
 	return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=80)
