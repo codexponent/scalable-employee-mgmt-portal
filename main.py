@@ -26,7 +26,6 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 # # Setting Values
 random_uuid = str(uuid.uuid4())
-queue_url = config['SQS']['connection_string']
 
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
